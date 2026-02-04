@@ -20,9 +20,9 @@ public class PlanController {
         return ResponseEntity.status(HttpStatus.CREATED).body(planService.save(requestDto));
     }
 
-    @GetMapping("/plans/{id}") // 일정 단건 조회
-    public ResponseEntity<GetPlanResponseDto> getPlan(@PathVariable long id){
-        return ResponseEntity.status(HttpStatus.OK).body(planService.findOne(id));
+    @GetMapping("/plans/{planId}") // 일정 단건 조회
+    public ResponseEntity<GetPlanResponseDto> getPlan(@PathVariable long planId){
+        return ResponseEntity.status(HttpStatus.OK).body(planService.findOne(planId));
     }
 
     @GetMapping("/plans") // 일정 조회
@@ -31,15 +31,15 @@ public class PlanController {
     }
 
 
-    @PutMapping("/plans/{id}")// 일정 수정
+    @PutMapping("/plans/{planId}")// 일정 수정
     public ResponseEntity<UpdatePlanResponseDto> updatePlan(
-            @PathVariable Long id,
+            @PathVariable Long planId,
             @RequestBody UpdatePlanRequestDto requestDto
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(planService.updatePlan(id, requestDto));
+        return ResponseEntity.status(HttpStatus.OK).body(planService.updatePlan(planId, requestDto));
     }
 
-    @DeleteMapping("/plans/{id}")//일정 삭제
+    @DeleteMapping("/plans/{planId}")//일정 삭제
     public ResponseEntity<Void> deletePlan(
             @PathVariable Long id,
             @RequestBody DeletePlanRequestDto requestDto

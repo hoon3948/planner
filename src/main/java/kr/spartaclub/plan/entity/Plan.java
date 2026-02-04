@@ -13,7 +13,7 @@ public class Plan extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long planId;
     @Column(length = 30, nullable = false)
     private String title;
     @Column(length = 200, nullable = false)

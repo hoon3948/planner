@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 @Getter
 public class UpdatePlanResponseDto {
 
-    private final Long id;
+    private final Long planId;
 
     public UpdatePlanResponseDto(Long id){
-        this.id = id;
+        this.planId = planId;
     }
 }

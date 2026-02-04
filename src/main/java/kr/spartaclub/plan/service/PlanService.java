@@ -26,7 +26,7 @@ public class PlanService {
         );
         Plan savedPlan = planRepository.save(plan);
         return new CreatePlanResponseDto(
-                savedPlan.getId(),
+                savedPlan.getPlanId(),
                 savedPlan.getTitle(),
                 savedPlan.getContent(),
                 savedPlan.getAuthor(),
@@ -36,12 +36,12 @@ public class PlanService {
     }
 
     @Transactional(readOnly = true)
-    public GetPlanResponseDto findOne(Long id){
-        Plan plan = planRepository.findById(id).orElseThrow(
+    public GetPlanResponseDto findOne(Long planId){
+        Plan plan = planRepository.findById(planId).orElseThrow(
                 () -> new IllegalStateException("없는 일정입니다.")
         );
         return new GetPlanResponseDto(
-                plan.getId(),
+                plan.getPlanId(),
                 plan.getTitle(),
                 plan.getContent(),
                 plan.getAuthor(),
@@ -59,7 +59,7 @@ public class PlanService {
         if(author == null || author.isBlank()) {
             for (Plan plan : plans) {
                 GetPlanResponseDto dto = new GetPlanResponseDto(
-                        plan.getId(),
+                        plan.getPlanId(),
                         plan.getTitle(),
                         plan.getContent(),
                         plan.getAuthor(),
@@ -72,7 +72,7 @@ public class PlanService {
             for (Plan plan : plans) {
                 if (plan.getAuthor().equals(author)) {
                     GetPlanResponseDto dto = new GetPlanResponseDto(
-                            plan.getId(),
+                            plan.getPlanId(),
                             plan.getTitle(),
                             plan.getContent(),
                             plan.getAuthor(),
@@ -88,8 +88,8 @@ public class PlanService {
     }
 
     @Transactional
-    public UpdatePlanResponseDto updatePlan(Long id, UpdatePlanRequestDto requestDto) {
-        Plan plan = planRepository.findById(id).orElseThrow(
+    public UpdatePlanResponseDto updatePlan(Long planId, UpdatePlanRequestDto requestDto) {
+        Plan plan = planRepository.findById(planId).orElseThrow(
                 () -> new IllegalStateException("없는 일정입니다.")
         );
 
@@ -97,18 +97,18 @@ public class PlanService {
             throw new IllegalArgumentException("비밀번호가 일치하지않습니다.");
         }
         plan.updatePlan(requestDto.getTitle(), requestDto.getAuthor());
-        return new UpdatePlanResponseDto(plan.getId());
+        return new UpdatePlanResponseDto(plan.getPlanId());
     }
 
     @Transactional
-    public void delete(Long id, String password) {
-        Plan plan = planRepository.findById(id).orElseThrow(
+    public void delete(Long planId, String password) {
+        Plan plan = planRepository.findById(planId).orElseThrow(
                 () -> new IllegalStateException("없는 일정입니다.")
         );
 
         if(!plan.getPassword().equals(password)){
             throw new IllegalArgumentException("비밀번호가 일치하지않습니다.");
         }
-        planRepository.deleteById(id);
+        planRepository.deleteById(planId);
     }
 }

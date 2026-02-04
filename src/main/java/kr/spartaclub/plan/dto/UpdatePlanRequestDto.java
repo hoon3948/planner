@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class UpdatePlanRequestDto {
-    private Long id;
+    private Long planId;
     private String title;
     private String author;
     private String password;
