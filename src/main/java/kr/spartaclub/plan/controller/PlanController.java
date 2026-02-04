@@ -36,7 +36,7 @@ public class PlanController {
             @PathVariable Long id,
             @RequestBody UpdatePlanRequestDto requestDto
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(planService.updatePlan(id, requestDto.getPassword(), requestDto));
+        return ResponseEntity.status(HttpStatus.OK).body(planService.updatePlan(id, requestDto));
     }
 
     @DeleteMapping("/plans/{id}")//일정 삭제

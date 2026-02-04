@@ -30,7 +30,8 @@ public class Plan extends BaseEntity{
         this.password = password;
     }
 
-    public void updatePlan(String title){
+    public void updatePlan(String title, String author){
         this.title = title;
+        this.author = author;
     }
 }

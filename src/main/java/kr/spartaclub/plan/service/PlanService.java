@@ -88,15 +88,15 @@ public class PlanService {
     }
 
     @Transactional
-    public UpdatePlanResponseDto updatePlan(Long id, String password, UpdatePlanRequestDto requestDto) {
+    public UpdatePlanResponseDto updatePlan(Long id, UpdatePlanRequestDto requestDto) {
         Plan plan = planRepository.findById(id).orElseThrow(
                 () -> new IllegalStateException("없는 일정입니다.")
         );
 
-        if(!plan.getPassword().equals(password)){
+        if(!plan.getPassword().equals(requestDto.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지않습니다.");
         }
-        plan.updatePlan(requestDto.getTitle());
+        plan.updatePlan(requestDto.getTitle(), requestDto.getAuthor());
         return new UpdatePlanResponseDto(plan.getId());
     }
 
