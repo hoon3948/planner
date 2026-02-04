@@ -20,15 +20,16 @@ public class PlanController {
         return ResponseEntity.status(HttpStatus.CREATED).body(planService.save(requestDto));
     }
 
-    @GetMapping("/plans/") // 일정 조회
-    public ResponseEntity<List<GetPlanResponseDto>> getPlans(){
-        return ResponseEntity.status(HttpStatus.OK).body(planService.findAll());
-    }
-
     @GetMapping("/plans/{id}") // 일정 단건 조회
     public ResponseEntity<GetPlanResponseDto> getPlan(@PathVariable long id){
         return ResponseEntity.status(HttpStatus.OK).body(planService.findOne(id));
     }
+
+    @GetMapping("/plans/") // 일정 조회
+    public ResponseEntity<List<GetPlanResponseDto>> getPlans(@RequestParam(required = false) String author){
+        return ResponseEntity.status(HttpStatus.OK).body(planService.findAll());
+    }
+
 
     @PutMapping("/plans/{id}")// 일정 수정
     public ResponseEntity<UpdatePlanResponseDto> updatePlan(
