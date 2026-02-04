@@ -27,7 +27,7 @@ public class PlanController {
 
     @GetMapping("/plans") // 일정 조회
     public ResponseEntity<List<GetPlanResponseDto>> getPlans(@RequestParam(required = false) String author){
-        return ResponseEntity.status(HttpStatus.OK).body(planService.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(planService.findAll(author));
     }
 
 
@@ -36,7 +36,7 @@ public class PlanController {
             @PathVariable Long id,
             @RequestBody UpdatePlanRequestDto requestDto
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(planService.updatePlan(id, requestDto));
+        return ResponseEntity.status(HttpStatus.OK).body(planService.updatePlan(id, requestDto.getPassword(), requestDto));
     }
 
     @DeleteMapping("/plans/{id}")//일정 삭제

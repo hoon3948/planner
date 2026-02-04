@@ -8,8 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -53,29 +52,50 @@ public class PlanService {
     }
 
     @Transactional(readOnly = true)
-    public List<GetPlanResponseDto> findAll() {
+    public List<GetPlanResponseDto> findAll(String author) {
         List<Plan> plans = planRepository.findAll();
-
         List<GetPlanResponseDto> dtos = new ArrayList<>();
-        for (Plan plan : plans) {
-            GetPlanResponseDto dto = new GetPlanResponseDto(
-              plan.getId(),
-              plan.getTitle(),
-              plan.getContent(),
-              plan.getAuthor(),
-              plan.getCreatedAt(),
-              plan.getModifiedAt()
-            );
-            dtos.add(dto);
+
+        if(author == null || author.isBlank()) {
+            for (Plan plan : plans) {
+                GetPlanResponseDto dto = new GetPlanResponseDto(
+                        plan.getId(),
+                        plan.getTitle(),
+                        plan.getContent(),
+                        plan.getAuthor(),
+                        plan.getCreatedAt(),
+                        plan.getModifiedAt()
+                );
+                dtos.add(dto);
+            }
+        }else{
+            for (Plan plan : plans) {
+                if (plan.getAuthor().equals(author)) {
+                    GetPlanResponseDto dto = new GetPlanResponseDto(
+                            plan.getId(),
+                            plan.getTitle(),
+                            plan.getContent(),
+                            plan.getAuthor(),
+                            plan.getCreatedAt(),
+                            plan.getModifiedAt()
+                    );
+                    dtos.add(dto);
+                }
+            }
         }
+        dtos.sort(Comparator.comparing(GetPlanResponseDto::getAuthor));
         return dtos;
     }
 
     @Transactional
-    public UpdatePlanResponseDto updatePlan(Long id, UpdatePlanRequestDto requestDto) {
+    public UpdatePlanResponseDto updatePlan(Long id, String password, UpdatePlanRequestDto requestDto) {
         Plan plan = planRepository.findById(id).orElseThrow(
                 () -> new IllegalStateException("없는 일정입니다.")
         );
+
+        if(!plan.getPassword().equals(password)){
+            throw new IllegalArgumentException("비밀번호가 일치하지않습니다.");
+        }
         plan.updatePlan(requestDto.getTitle());
         return new UpdatePlanResponseDto(plan.getId());
     }
