@@ -27,9 +27,7 @@ public class Plan extends BaseEntity{
         this.author = author;
     }
 
-    public void updatePlan(String title, String content, String author){
+    public void updatePlan(String title){
         this.title = title;
-        this.content = content;
-        this.author = author;
     }
 }
