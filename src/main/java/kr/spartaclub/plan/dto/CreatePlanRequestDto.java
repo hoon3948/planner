@@ -10,6 +10,7 @@ public class CreatePlanRequestDto {
     private String title;
     private String content;
     private String author;
+    private String password;
 
 
 }

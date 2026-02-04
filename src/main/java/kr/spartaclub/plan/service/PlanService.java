@@ -1,11 +1,12 @@
 package kr.spartaclub.plan.service;
 
-import jakarta.transaction.Transactional;
+
 import kr.spartaclub.plan.dto.*;
 import kr.spartaclub.plan.entity.Plan;
 import kr.spartaclub.plan.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,8 @@ public class PlanService {
 
     @Transactional
     public CreatePlanResponseDto save(CreatePlanRequestDto request) {
-        Plan plan = new Plan(
-                request.getTitle(),
-                request.getContent(),
-                request.getAuthor()
-        );
-        Plan savedPlan = PlanRepository.save(plan);
+        Plan plan = new Plan(request.getTitle());
+        Plan savedPlan = planRepository.save(plan);
         return new CreatePlanResponseDto(
                 savedPlan.getId(),
                 savedPlan.getTitle(),
@@ -76,5 +73,14 @@ public class PlanService {
         );
         plan.updatePlan(requestDto.getTitle());
         return new UpdatePlanResponseDto(plan.getId());
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        boolean existence = planRepository.existsById(id);
+        if(!existence){
+            throw new IllegalStateException("없는 일정입니다.");
+        }
+        planRepository.deleteById(id);
     }
 }

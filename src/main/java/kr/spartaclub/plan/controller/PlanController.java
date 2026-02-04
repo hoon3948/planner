@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class PlanController {
@@ -15,11 +17,11 @@ public class PlanController {
 
     @PostMapping("/plans") //일정 생성
     public ResponseEntity<CreatePlanResponseDto> createPlan(@RequestBody CreatePlanRequestDto requestDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(planService.save(requestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(planService.save(requestDto));
     }
 
     @GetMapping("/plans/") // 일정 조회
-    public ResponseEntity<GetPlanResponseDto> getPlans(){
+    public ResponseEntity<List<GetPlanResponseDto>> getPlans(){
         return ResponseEntity.status(HttpStatus.OK).body(planService.findAll());
     }
 
@@ -33,10 +35,14 @@ public class PlanController {
             @PathVariable Long id,
             @RequestBody UpdatePlanRequestDto requestDto
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(planService.updatePlan(id, requestDto)
+        return ResponseEntity.status(HttpStatus.OK).body(planService.updatePlan(id, requestDto));
     }
 
-//    @DeleteMapping("/plans/{id}")//일정 삭제
+    @DeleteMapping("/plans/{id}")//일정 삭제
+    public ResponseEntity<Void> deletePlan(@PathVariable Long id){
+        planService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 
 }

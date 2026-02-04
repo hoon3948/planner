@@ -21,7 +21,7 @@ public class Plan extends BaseEntity{
     private String author;
     private String password;
 
-    public Plan(String title, String content, String author){
+    public Plan(String title){
         this.title = title;
         this.content = content;
         this.author = author;
