@@ -81,10 +81,13 @@ public class PlanService {
     }
 
     @Transactional
-    public void delete(Long id) {
-        boolean existence = planRepository.existsById(id);
-        if(!existence){
-            throw new IllegalStateException("없는 일정입니다.");
+    public void delete(Long id, String password) {
+        Plan plan = planRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("없는 일정입니다.")
+        );
+
+        if(!plan.getPassword().equals(password)){
+            throw new IllegalArgumentException("비밀번호가 일치하지않습니다.");
         }
         planRepository.deleteById(id);
     }

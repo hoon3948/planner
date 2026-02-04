@@ -25,7 +25,7 @@ public class PlanController {
         return ResponseEntity.status(HttpStatus.OK).body(planService.findOne(id));
     }
 
-    @GetMapping("/plans/") // 일정 조회
+    @GetMapping("/plans") // 일정 조회
     public ResponseEntity<List<GetPlanResponseDto>> getPlans(@RequestParam(required = false) String author){
         return ResponseEntity.status(HttpStatus.OK).body(planService.findAll());
     }
@@ -40,8 +40,11 @@ public class PlanController {
     }
 
     @DeleteMapping("/plans/{id}")//일정 삭제
-    public ResponseEntity<Void> deletePlan(@PathVariable Long id){
-        planService.delete(id);
+    public ResponseEntity<Void> deletePlan(
+            @PathVariable Long id,
+            @RequestBody DeletePlanRequestDto requestDto
+    ){
+        planService.delete(id, requestDto.getPassword());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

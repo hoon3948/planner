@@ -16,11 +16,11 @@ public class Plan extends BaseEntity{
     private Long id;
     @Column(length = 30, nullable = false)
     private String title;
-    @Column(length = 300, nullable = false)
+    @Column(length = 200, nullable = false)
     private String content;
-    @Column(length = 4, nullable = false)
+    @Column(nullable = false)
     private String author;
-    @Column(length = 10, nullable = false)
+    @Column(nullable = false)
     private String password;
 
     public Plan(String title, String content, String author, String password){
