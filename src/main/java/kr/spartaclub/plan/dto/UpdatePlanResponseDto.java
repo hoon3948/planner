@@ -9,7 +9,7 @@ public class UpdatePlanResponseDto {
 
     private final Long planId;
 
-    public UpdatePlanResponseDto(Long id){
+    public UpdatePlanResponseDto(Long planId){
         this.planId = planId;
     }
 }

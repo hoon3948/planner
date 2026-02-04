@@ -16,7 +16,7 @@ public class PlanService {
     private final PlanRepository planRepository;
 
 
-    @Transactional
+    @Transactional //일정 생성
     public CreatePlanResponseDto save(CreatePlanRequestDto request) {
         Plan plan = new Plan(
                 request.getTitle(),
@@ -35,7 +35,7 @@ public class PlanService {
         );
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) //일정 단건 조회
     public GetPlanResponseDto findOne(Long planId){
         Plan plan = planRepository.findById(planId).orElseThrow(
                 () -> new IllegalStateException("없는 일정입니다.")
@@ -51,7 +51,7 @@ public class PlanService {
 
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) //일정 조회
     public List<GetPlanResponseDto> findAll(String author) {
         List<Plan> plans = planRepository.findAll();
         List<GetPlanResponseDto> dtos = new ArrayList<>();
@@ -87,7 +87,7 @@ public class PlanService {
         return dtos;
     }
 
-    @Transactional
+    @Transactional //일정 단건 수정
     public UpdatePlanResponseDto updatePlan(Long planId, UpdatePlanRequestDto requestDto) {
         Plan plan = planRepository.findById(planId).orElseThrow(
                 () -> new IllegalStateException("없는 일정입니다.")
@@ -100,7 +100,7 @@ public class PlanService {
         return new UpdatePlanResponseDto(plan.getPlanId());
     }
 
-    @Transactional
+    @Transactional //일정 단건 삭제
     public void delete(Long planId, String password) {
         Plan plan = planRepository.findById(planId).orElseThrow(
                 () -> new IllegalStateException("없는 일정입니다.")

@@ -20,13 +20,20 @@ public class Comment extends BaseEntity{
     private String commentAuthor;
     @Column(nullable = false)
     private String commentPassword;
-    @Column(nullable = false)
-    private Long planId;
 
-    public Comment(String commentContent,String commentAuthor, String commentPassword, Long planId){
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plan_id", nullable = false)
+    private Plan plan;
+
+    public Comment(String commentContent,String commentAuthor, String commentPassword, Plan plan){
         this.commentContent = commentContent;
         this.commentAuthor = commentAuthor;
         this.commentPassword = commentPassword;
-        this.planId = planId;
+        this.plan = plan;
+    }
+
+    private void updateComment(String commentContent, String commentAuthor){
+        this.commentContent = commentContent;
+        this.commentAuthor = commentAuthor;
     }
 }
