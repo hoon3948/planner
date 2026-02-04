@@ -18,13 +18,16 @@ public class Plan extends BaseEntity{
     private String title;
     @Column(length = 300, nullable = false)
     private String content;
+    @Column(length = 4, nullable = false)
     private String author;
+    @Column(length = 10, nullable = false)
     private String password;
 
-    public Plan(String title){
+    public Plan(String title, String content, String author, String password){
         this.title = title;
         this.content = content;
         this.author = author;
+        this.password = password;
     }
 
     public void updatePlan(String title){

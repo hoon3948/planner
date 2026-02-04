@@ -19,7 +19,12 @@ public class PlanService {
 
     @Transactional
     public CreatePlanResponseDto save(CreatePlanRequestDto request) {
-        Plan plan = new Plan(request.getTitle());
+        Plan plan = new Plan(
+                request.getTitle(),
+                request.getContent(),
+                request.getAuthor(),
+                request.getPassword()
+        );
         Plan savedPlan = planRepository.save(plan);
         return new CreatePlanResponseDto(
                 savedPlan.getId(),

@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 public class UpdatePlanResponseDto {
 
     private final Long id;
-    priv
 
     public UpdatePlanResponseDto(Long id){
         this.id = id;
