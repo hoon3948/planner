@@ -21,7 +21,7 @@ public class PlanController {
     }
 
     @GetMapping("/plans/{planId}") // 일정 단건 조회
-    public ResponseEntity<GetPlanResponseDto> getPlan(@PathVariable long planId){
+    public ResponseEntity<GetCommentPlanResponse> getPlan(@PathVariable long planId){
         return ResponseEntity.status(HttpStatus.OK).body(planService.findOne(planId));
     }
 

@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-public class GetPlanResponseDto {
+public class GetCommentPlanResponse {
+
     private final Long planId;
     private final String title;
     private final String content;
@@ -16,12 +17,18 @@ public class GetPlanResponseDto {
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
-    public GetPlanResponseDto(Plan plan) {
+    private final List<GetCommentResponse> comments;
+    public GetCommentPlanResponse(Plan plan, List<Comment> comments){
         this.planId = plan.getPlanId();
         this.title = plan.getTitle();
         this.content = plan.getContent();
         this.author = plan.getAuthor();
         this.createdAt = plan.getCreatedAt();
         this.modifiedAt = plan.getModifiedAt();
+        this.comments = comments.stream()
+                .map(GetCommentResponse::new)
+                .toList();
     }
+
+
 }

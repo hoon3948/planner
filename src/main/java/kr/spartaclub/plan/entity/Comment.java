@@ -26,10 +26,10 @@ public class Comment extends BaseEntity{
     private Plan plan;
 
     public Comment(String commentContent,String commentAuthor, String commentPassword, Plan plan){
+        this.plan = plan;
         this.commentContent = commentContent;
         this.commentAuthor = commentAuthor;
         this.commentPassword = commentPassword;
-        this.plan = plan;
     }
 
     private void updateComment(String commentContent, String commentAuthor){
