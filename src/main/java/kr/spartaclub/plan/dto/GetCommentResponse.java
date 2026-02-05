@@ -26,7 +26,7 @@ public class GetCommentResponse {
 
 
 
-    public GetCommentResponse(Comment comment, Long commentId) {
+    public GetCommentResponse(Comment comment) {
         this.planId = comment.getPlan().getPlanId();
         this.commentContent = comment.getCommentContent();
         this.commentAuthor = comment.getCommentAuthor();

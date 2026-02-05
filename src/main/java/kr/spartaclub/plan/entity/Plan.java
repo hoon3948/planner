@@ -26,7 +26,7 @@ public class Plan extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "plan")
     private List<Comment> comments = new ArrayList<>();
 
     public Plan(String title, String content, String author, String password){
