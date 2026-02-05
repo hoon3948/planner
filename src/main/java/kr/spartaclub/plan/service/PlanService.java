@@ -41,18 +41,18 @@ public class PlanService {
     public GetCommentPlanResponse findOne(Long planId){
         Plan plan = planRepository.findById(planId).orElseThrow(
                 () -> new IllegalStateException("없는 일정입니다.")
-        );
+        ); //찾고 없으면 던지기
 
-        List<Comment> comments = commentRepository.findByPlanPlanId(planId);
+        List<Comment> comments = commentRepository.findByPlanPlanId(planId); //댓글 추가 조회
         return new GetCommentPlanResponse(plan, comments);
     }
 
     @Transactional(readOnly = true) //일정 조회
     public List<GetPlanResponseDto> findAll(String author) {
-        List<Plan> plans = planRepository.findAll();
+        List<Plan> plans = planRepository.findAll(); //전체 탐색
         List<GetPlanResponseDto> dtos = new ArrayList<>();
 
-        if(author == null || author.isBlank()) {
+        if(author == null || author.isBlank()) { //저자가 입력되지않거나 비어있을경우
             for (Plan plan : plans) {
                 GetPlanResponseDto dto = new GetPlanResponseDto(plan);
                 dtos.add(dto);

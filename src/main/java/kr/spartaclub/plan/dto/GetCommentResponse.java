@@ -1,10 +1,19 @@
 package kr.spartaclub.plan.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import kr.spartaclub.plan.entity.Comment;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@JsonPropertyOrder({
+        "planId",
+        "commentId",
+        "commentContent",
+        "commentAuthor",
+        "createdAt",
+        "modifiedAt"
+})
 @Getter
 public class GetCommentResponse {
 

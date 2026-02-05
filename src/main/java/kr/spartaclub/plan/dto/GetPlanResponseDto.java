@@ -1,5 +1,6 @@
 package kr.spartaclub.plan.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import kr.spartaclub.plan.entity.Comment;
 import kr.spartaclub.plan.entity.Plan;
 import lombok.Getter;
@@ -7,6 +8,14 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@JsonPropertyOrder({
+        "planId",
+        "title",
+        "content",
+        "author",
+        "createdAt",
+        "modifiedAt"
+})
 @Getter
 public class GetPlanResponseDto {
     private final Long planId;
