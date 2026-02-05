@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class GetCommentResponse {
 
     private final Long planId;
+    private final Long commentId;
     private final String commentContent;
     private final String commentAuthor;
     private final LocalDateTime createdAt;
@@ -25,11 +26,12 @@ public class GetCommentResponse {
 
 
 
-    public GetCommentResponse(Comment comment) {
+    public GetCommentResponse(Comment comment, Long commentId) {
         this.planId = comment.getPlan().getPlanId();
         this.commentContent = comment.getCommentContent();
         this.commentAuthor = comment.getCommentAuthor();
         this.createdAt = comment.getCreatedAt();
         this.modifiedAt = comment.getModifiedAt();
+        this.commentId = comment.getCommentId();
     }
 }

@@ -65,7 +65,7 @@ public class PlanService {
                 }
             }
         }
-        dtos.sort(Comparator.comparing(GetPlanResponseDto::getAuthor));
+        dtos.sort(Comparator.comparing(GetPlanResponseDto::getModifiedAt).reversed());
         return dtos;
     }
 
